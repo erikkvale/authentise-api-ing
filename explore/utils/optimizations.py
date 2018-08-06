@@ -7,7 +7,7 @@ class lazyproperty:
     attributes (properties) to be computed once on
     access then store that computed value on the instance.
     Saving multiple computations of the same property if
-    it is accessed multiple times. Thanks Beazley:)
+    it is accessed multiple times.
     """
     def __init__(self, func):
         self.func = func
