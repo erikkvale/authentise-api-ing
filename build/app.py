@@ -1,3 +1,7 @@
+"""
+A small starter app to get Flask, Flask-RESTful and Flask-SQLAlchemy all talking.
+"""
+
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
