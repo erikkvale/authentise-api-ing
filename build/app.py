@@ -17,7 +17,7 @@ class User(db.Model):
     email = db.Column(db.String(200))
     username = db.Column(db.String(200))
     password = db.Column(db.String(128))
-    
+
 
 db.create_all()
 
