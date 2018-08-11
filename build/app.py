@@ -18,6 +18,16 @@ class User(db.Model):
     username = db.Column(db.String(200))
     password = db.Column(db.String(128))
 
+    def __init__(self, first_name, last_name, email,
+                 username, password):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.username = username
+        self.password = password
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
 
 db.create_all()
 
