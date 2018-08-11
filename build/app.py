@@ -1,13 +1,15 @@
 """
 A small starter app to get Flask, Flask-RESTful and Flask-SQLAlchemy all talking.
 """
-
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
+from marshmallow import Schema, fields, post_load
 
 from build.config import DB_URI, DB_TRACK
 
+
+# App configuration
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = DB_TRACK
@@ -15,6 +17,7 @@ db = SQLAlchemy(app)
 api = Api(app)
 
 
+# Model(s)
 class User(db.Model):
     __tablename__ = 'user'
 
@@ -36,22 +39,49 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+
+class UserSchema(Schema):
+    id = fields.Integer()
+    first_name = fields.String()
+    last_name = fields.String()
+    email = fields.Email()
+    username = fields.String()
+    password = fields.String()
+
+    @post_load
+    def make_user(self, data):
+        return User(**data)
+
+
+# Initialize data tables
 db.drop_all()
 db.create_all()
-
-user_e = User('Erik', 'Kvale', 'eirikval@gmail.com', 'eirikval', 'Gunnar14')
-user_a = User('Amara', 'Faucett', 'amara@gmail.com', 'amaralady', 'swissbeauty')
-db.session.add(user_e)
-db.session.add(user_a)
-db.session.commit()
 
 
 class UserResource(Resource):
 
     def get(self):
-        return {'Hello': 'world'}
+        users_schema = UserSchema(many=True)
+        users = User.query.all()
+        response = users_schema.dump(users)
+        return {'users': response}, 200
 
-api.add_resource(UserResource, '/user')
+    def post(self):
+        json_data = request.get_json()
+        user = User(
+            first_name=json_data['first_name'],
+            last_name=json_data['last_name'],
+            email=json_data['email'],
+            username=json_data['username'],
+            password=json_data['password']
+        )
+        db.session.add(user)
+        db.session.commit()
+        return {'message': 'user {} created!'.format(user.username)}, 201
+
+
+
+api.add_resource(UserResource, '/users')
 
 
 if __name__ == '__main__':
