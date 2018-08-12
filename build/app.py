@@ -18,21 +18,10 @@ api = Api(app)
 
 
 from build.models import User
+from build.serializers import UserSchema
 
 
 
-
-class UserSchema(Schema):
-    id = fields.Integer()
-    first_name = fields.String()
-    last_name = fields.String()
-    email = fields.Email()
-    username = fields.String()
-    password = fields.String()
-
-    @pre_load
-    def make_user(self, data):
-        return User(**data)
 
 
 # Initialize data tables
