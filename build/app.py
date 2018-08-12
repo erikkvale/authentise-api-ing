@@ -4,8 +4,6 @@ A small starter app to get Flask, Flask-RESTful and Flask-SQLAlchemy all talking
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
-from marshmallow import Schema, fields, pre_load
-
 from build.config import DB_URI, DB_TRACK
 
 
@@ -19,10 +17,6 @@ api = Api(app)
 
 from build.models import User
 from build.serializers import UserSchema
-
-
-
-
 
 # Initialize data tables
 db.drop_all()
@@ -39,16 +33,14 @@ class UserResource(Resource):
 
     def post(self):
         json_data = request.get_json()
-        user = User(
-            first_name=json_data['first_name'],
-            last_name=json_data['last_name'],
-            email=json_data['email'],
-            username=json_data['username'],
-            password=json_data['password']
-        )
-        db.session.add(user)
-        db.session.commit()
-        return {'message': 'user {} created!'.format(user.username)}, 201
+        username = User.query.filter_by(username=json_data['username']).first()
+        if username:
+            return {'message': 'username already exists!'}, 409
+        else:
+            user = User(**json_data)
+            db.session.add(user)
+            db.session.commit()
+            return {'message': 'user {} created!'.format(user.username)}, 201
 
 
 
