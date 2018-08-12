@@ -1,4 +1,7 @@
-import psycopg2
+"""
+Setting up a basic config class to render a DSN
+connection string to a PostgreSQL database
+"""
 
 class DbConfig:
     """
