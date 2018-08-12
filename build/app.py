@@ -4,7 +4,7 @@ A small starter app to get Flask, Flask-RESTful and Flask-SQLAlchemy all talking
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields, pre_load
 
 from build.config import DB_URI, DB_TRACK
 
@@ -48,7 +48,7 @@ class UserSchema(Schema):
     username = fields.String()
     password = fields.String()
 
-    @post_load
+    @pre_load
     def make_user(self, data):
         return User(**data)
 
