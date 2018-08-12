@@ -14,9 +14,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = DB_TRACK
 db = SQLAlchemy(app)
 api = Api(app)
 
-
-from build.models import User
-from build.serializers import UserSchema
 from build.resources import UserResource
 
 # Initialize data tables
