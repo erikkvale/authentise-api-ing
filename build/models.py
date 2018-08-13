@@ -1,3 +1,7 @@
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
 from build.app import db
 
 # Model(s)
@@ -17,7 +21,13 @@ class User(db.Model):
         self.last_name = last_name
         self.email = email
         self.username = username
-        self.password = password
+        self.password = self.set_password(password)
+
+    def set_password(self, password):
+        return generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.pass_hash, password)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
