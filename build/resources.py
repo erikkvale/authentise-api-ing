@@ -48,5 +48,18 @@ class UserResource(Resource):
 
 class ModelResource(Resource):
 
+    @jwt_required
     def get(self):
-        return {"user_id": get_jwt_identity()}, 200
+        pass
+
+    @jwt_required
+    def post(self):
+        pass
+
+    @jwt_required
+    def put(self):
+        pass
+
+    @jwt_required
+    def delete(self):
+        pass
