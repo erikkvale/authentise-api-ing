@@ -30,7 +30,13 @@ class UserResource(Resource):
         new_user = User(**data)
         db.session.add(new_user)
         db.session.commit()
-        return {"message": "Added user {}".format(new_user.username)}, 201
+
+        # Create JWT token for new user
+        access_token = create_access_token(identity=username)
+        return {
+            "message": "Added user {}".format(new_user.username),
+            "token": access_token
+        }, 201
 
     def put(self):
         raise NotImplementedError
