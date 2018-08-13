@@ -49,8 +49,14 @@ class Model(db.Model):
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, name):
+    def __init__(self, name, surface_area, volume,
+                 size_x, size_y, size_z):
         self.name = name
+        self.surface_area = surface_area
+        self.volume = volume
+        self.size_x = size_x
+        self.size_y = size_y
+        self.size_z = size_z
 
     def __repr__(self):
         return "<Model {}>".format(self.name)
