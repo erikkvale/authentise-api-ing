@@ -2,7 +2,6 @@ from werkzeug.security import (
     generate_password_hash,
     check_password_hash
 )
-from datetime import datetime
 from build.app import db
 
 # Model(s)
