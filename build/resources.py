@@ -39,16 +39,19 @@ class UserResource(Resource):
             "token": access_token
         }, 201
 
+    @jwt_required
     def put(self):
         raise NotImplementedError
 
+    @jwt_required
     def delete(self):
         raise NotImplementedError
 
 
 class ModelResource(Resource):
 
-    def get(self, id):
+    @jwt_required
+    def get(self):
         model_schema = ModelSchema(many=True)
         models = Model.query.filter_by(user_id=id).all()
         response = model_schema.dump(models)
@@ -64,8 +67,10 @@ class ModelResource(Resource):
         db.session.commit()
         return {"message": "{} created".format(new_model.name)}
 
+    @jwt_required
     def put(self):
         raise NotImplementedError
 
+    @jwt_required
     def delete(self):
         raise NotImplementedError
