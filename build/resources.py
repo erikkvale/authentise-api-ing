@@ -50,16 +50,16 @@ class ModelResource(Resource):
 
     @jwt_required
     def get(self):
-        pass
+        raise NotImplementedError
 
     @jwt_required
     def post(self):
-        pass
+        raise NotImplementedError
 
     @jwt_required
     def put(self):
-        pass
+        raise NotImplementedError
 
     @jwt_required
     def delete(self):
-        pass
+        raise NotImplementedError
