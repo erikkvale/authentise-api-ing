@@ -6,8 +6,8 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 from build.app import db
-from build.models import User
-from build.serializers import UserSchema
+from build.models import User, Model
+from build.serializers import UserSchema, ModelSchema
 
 
 class UserResource(Resource):
