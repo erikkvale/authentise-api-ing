@@ -12,8 +12,10 @@ from build.config import DB_URI, DB_TRACK
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = DB_TRACK
+app.config['JWT_SECRET_KEY'] = 'derpyderp'
 db = SQLAlchemy(app)
 api = Api(app)
+jwt = JWTManager(app)
 
 from build.resources import UserResource
 
