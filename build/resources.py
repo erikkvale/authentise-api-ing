@@ -48,18 +48,14 @@ class UserResource(Resource):
 
 class ModelResource(Resource):
 
-    @jwt_required
     def get(self):
         raise NotImplementedError
 
-    @jwt_required
     def post(self):
         raise NotImplementedError
 
-    @jwt_required
     def put(self):
         raise NotImplementedError
 
-    @jwt_required
     def delete(self):
         raise NotImplementedError
