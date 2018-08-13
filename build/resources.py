@@ -45,3 +45,8 @@ class UserResource(Resource):
     def delete(self):
         raise NotImplementedError
 
+
+class ModelResource(Resource):
+
+    def get(self):
+        return {"user_id": get_jwt_identity()}, 200
