@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 api = Api(app)
 jwt = JWTManager(app)
 
-from build.resources import UserResource
+from build.resources import UserResource, ModelResource
 
 # Initialize data tables
 db.drop_all()
@@ -25,6 +25,7 @@ db.create_all()
 
 # API resource endpoints
 api.add_resource(UserResource, '/users')
+api.add_resource(ModelResource, '/models')
 
 
 if __name__ == '__main__':
