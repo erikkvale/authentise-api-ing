@@ -2,6 +2,7 @@ from werkzeug.security import (
     generate_password_hash,
     check_password_hash
 )
+from datetime import datetime
 from build.app import db
 
 # Model(s)
@@ -14,6 +15,7 @@ class User(db.Model):
     email = db.Column(db.String(200), unique=True)
     username = db.Column(db.String(200), unique=True)
     password = db.Column(db.String(128), unique=True)
+    models = db.relationship('Model', backref='curator', lazy='dynamic')
 
     def __init__(self, first_name, last_name, email,
                  username, password):
@@ -31,3 +33,24 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
+
+class Model(db.Model):
+    __tablename__ = 'model'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    surface_area = db.Column(db.Float)
+    volume = db.Column(db.Float)
+    size_x = db.Column(db.Float)
+    size_y = db.Column(db.Float)
+    size_z = db.Column(db.Float)
+    created_on = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return "<Model {}>".format(self.name)
