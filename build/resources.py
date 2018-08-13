@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask_jwt_extended import (
     jwt_required,
     create_access_token,
-    get_jwt_identity,
+    current_user
 )
 from build.app import db
 from build.models import User, Model
@@ -48,8 +48,11 @@ class UserResource(Resource):
 
 class ModelResource(Resource):
 
-    def get(self):
-        raise NotImplementedError
+    def get(self, id):
+        model_schema = ModelSchema(many=True)
+        models = Model.query.filter_by(user_id=id).all()
+        response = model_schema.dump(models)
+        return {'models': response}, 200
 
     @jwt_required
     def post(self):
