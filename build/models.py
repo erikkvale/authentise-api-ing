@@ -1,3 +1,4 @@
+from datetime import datetime
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
@@ -45,7 +46,7 @@ class Model(db.Model):
     size_x = db.Column(db.Float)
     size_y = db.Column(db.Float)
     size_z = db.Column(db.Float)
-    created_on = db.Column(db.DateTime)
+    created_on = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, name):
