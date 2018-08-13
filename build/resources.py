@@ -27,3 +27,9 @@ class UserResource(Resource):
         db.session.commit()
         return {"message": "Added user {}".format(new_user.username)}, 201
 
+    def put(self):
+        raise NotImplementedError
+
+    def delete(self):
+        raise NotImplementedError
+
