@@ -1,9 +1,8 @@
-from flask import request, jsonify
+from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import (
     jwt_required,
-    create_access_token,
-    current_user
+    create_access_token
 )
 from build.app import db
 from build.models import User, Model
