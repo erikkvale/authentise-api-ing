@@ -1,9 +1,10 @@
 """
 A small starter app to get Flask, Flask-RESTful and Flask-SQLAlchemy all talking.
 """
-from flask import Flask, request
-from flask_restful import Resource, Api
+from flask import Flask
+from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager
 from build.config import DB_URI, DB_TRACK
 
 

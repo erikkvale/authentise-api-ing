@@ -1,5 +1,10 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import (
+    jwt_required,
+    create_access_token,
+    get_jwt_identity
+)
 from build.app import db
 from build.models import User
 from build.serializers import UserSchema
