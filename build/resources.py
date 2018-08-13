@@ -12,6 +12,7 @@ from build.serializers import UserSchema
 
 class UserResource(Resource):
 
+    @jwt_required
     def get(self):
         users_schema = UserSchema(many=True)
         users = User.query.all()
